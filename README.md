@@ -10,6 +10,35 @@ For your first tests you should use a freshly formated SD card and the example f
 
 All tracks should be named like this: 'XXXX_SomeName.wav' Where XXXX is the track number (has to be 4 digets with leading zeros (e.g. 0001, 0002, ...).
 
+## Install
+Place the library in the **lib** folder of your device (create the folder if it doesn't exist yet).
+
+It should look like this:
+
+- **lib**
+   - **wav_trigger_pro**
+      - **\_\_init\_\_.py**
+      - **\_\_main\_\_.py**
+
+## Example
+### Count to 8
+This example will count from 1 to 8. Make sure you got the exampkle files provided [here](https://drive.google.com/file/d/17SlXueDCNjg29a56VSZPSQ7Gt-WlDesp/view?usp=drive_link) loaded on the sd card
+```Python
+import machine
+import time
+from wav_trigger_pro import wavTriggerPro
+
+i2c = machine.I2C(1,scl=machine.Pin(27), sda=machine.Pin(26))
+
+wav = wavTriggerPro(i2c)
+
+print(wav.get_num_tracks())
+
+for i in range(8):
+    wav.play_track_poly(i+1)
+    time.sleep(2.0)
+```
+
 ## API
 ### class wavTriggerPro(i2c,addr = WAV_TRIGGER_PRO_DEFAULT_ADDR)
 - i2c: the machine.I2C instance to use
